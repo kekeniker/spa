@@ -13,6 +13,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(sa.NewServiceAccountCommand())
 	rootCmd.AddCommand(newVersionCommand())
+	rootCmd.AddCommand(newCompletionCmd())
 }
 
 func Execute() error {
