@@ -1,0 +1,11 @@
+builds:
+- main: .
+  ldflags: 
+    - -s -w
+    - -X github.com/kekeniker/spin-admin/pkg/version.Version={{.Tag}}
+    - -X github.com/kekeniker/spin-admin/pkg/version.Revision={{.ShortCommit}}
+    - -X github.com/kekeniker/spin-admin/pkg/version.BuildDate={{.Date}}
+  goos:
+  - linux
+  - darwin
+  - windows
