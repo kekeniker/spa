@@ -1,4 +1,4 @@
-module github.com/kekeniker/spin-admin
+module github.com/kekeniker/spa
 
 go 1.14
 

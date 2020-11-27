@@ -2,9 +2,9 @@ builds:
 - main: .
   ldflags: 
     - -s -w
-    - -X github.com/kekeniker/spin-admin/pkg/version.Version={{.Tag}}
-    - -X github.com/kekeniker/spin-admin/pkg/version.Revision={{.ShortCommit}}
-    - -X github.com/kekeniker/spin-admin/pkg/version.BuildDate={{.Date}}
+    - -X github.com/kekeniker/spa/pkg/version.Version={{.Tag}}
+    - -X github.com/kekeniker/spa/pkg/version.Revision={{.ShortCommit}}
+    - -X github.com/kekeniker/spa/pkg/version.BuildDate={{.Date}}
   goos:
   - linux
   - darwin
