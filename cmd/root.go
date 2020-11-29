@@ -7,7 +7,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "spin-admin",
+	Use:   "spa",
 	Short: "Spinnaker Admin Tools",
 }
 

@@ -8,7 +8,9 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
 	"k8s.io/client-go/kubernetes"
+	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/tools/clientcmd/api"
 	"k8s.io/client-go/util/homedir"
 )
 
@@ -18,9 +20,11 @@ var _ Client = (*client)(nil)
 type Client interface {
 	CreateServiceAccount(ctx context.Context, name, namespace string) (*corev1.ServiceAccount, *corev1.Secret, error)
 	CreateRole(ctx context.Context, roleName, namespace string) (*rbacv1.Role, error)
-	CreateRoleBinding(ctx context.Context, serviceAccountName, roleName, namespace string) (*rbacv1.RoleBinding, error)
+	CreateRoleBinding(ctx context.Context, serviceAccountName, roleName, roleBindingName, namespace string) (*rbacv1.RoleBinding, error)
 	CreateClusterRole(ctx context.Context, roleName string) (*rbacv1.ClusterRole, error)
-	CreateClusterRoleBinding(ctx context.Context, serviceAccountName, roleName string) (*rbacv1.ClusterRoleBinding, error)
+	CreateClusterRoleBinding(ctx context.Context, serviceAccountName, roleName, rbName, namespace string) (*rbacv1.ClusterRoleBinding, error)
+
+	CreateKubeConfig(secret *corev1.Secret) (*api.Config, error)
 }
 
 // ClientOption is for additional client configurations.
@@ -41,7 +45,7 @@ type client struct {
 // NewClient returns a Kubernetes API client that can be used outside the cluster
 func NewClient(ctx context.Context, opts ...ClientOption) (Client, error) {
 	var kubeconfig *string
-	var c *client
+	c := &client{}
 	for _, opt := range opts {
 		opt(c)
 	}
