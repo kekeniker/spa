@@ -12,8 +12,10 @@ func (c *client) CreateServiceAccount(ctx context.Context, name, namespace strin
 	_, err := c.clientset.CoreV1().ServiceAccounts(namespace).Create(ctx, &v1.ServiceAccount{
 		ObjectMeta: metav1.ObjectMeta{Name: name},
 	}, metav1.CreateOptions{})
-	if err != nil && !errors.IsAlreadyExists(err) {
-		return nil, nil, err
+	if err != nil {
+		if !errors.IsAlreadyExists(err) {
+			return nil, nil, err
+		}
 	}
 
 	watcher, err := c.clientset.CoreV1().ServiceAccounts(namespace).Watch(ctx, metav1.ListOptions{})

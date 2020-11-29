@@ -66,12 +66,10 @@ func (c *client) CreateClusterRoleBinding(ctx context.Context, saName, rName, rb
 
 	rb, err := c.clientset.RbacV1().ClusterRoleBindings().Create(ctx, b, metav1.CreateOptions{})
 	if err != nil {
-		if !errors.IsAlreadyExists(err) {
-			return nil, err
+		if errors.IsAlreadyExists(err) {
+			return rb, nil
 		}
-	}
 
-	if err != nil && !errors.IsAlreadyExists(err) {
 		return nil, err
 	}
 

@@ -47,8 +47,11 @@ func (c *client) CreateRole(ctx context.Context, name, namespace string) (*rbacv
 		},
 		Rules: defaultPolicyRules,
 	}
-	_, err := c.clientset.RbacV1().Roles(namespace).Create(ctx, role, metav1.CreateOptions{})
-	if err != nil && !errors.IsAlreadyExists(err) {
+	role, err := c.clientset.RbacV1().Roles(namespace).Create(ctx, role, metav1.CreateOptions{})
+	if err != nil {
+		if errors.IsAlreadyExists(err) {
+			return role, nil
+		}
 		return nil, err
 	}
 
@@ -72,9 +75,21 @@ func (c *client) CreateClusterRole(ctx context.Context, name string) (*rbacv1.Cl
 		Rules: defaultPolicyRules,
 	}
 	role, err := c.clientset.RbacV1().ClusterRoles().Create(ctx, role, metav1.CreateOptions{})
-	if err != nil && !errors.IsAlreadyExists(err) {
+	if err != nil {
+		if errors.IsAlreadyExists(err) {
+			return role, nil
+		}
 		return nil, err
 	}
 
-	return role, nil
+	watcher, err := c.clientset.RbacV1().ClusterRoles().Watch(ctx, metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	select {
+	case <-watcher.ResultChan():
+	}
+
+	return c.clientset.RbacV1().ClusterRoles().Get(ctx, name, metav1.GetOptions{})
 }
