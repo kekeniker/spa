@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kekeniker/spin-admin/cmd"
+	"github.com/kekeniker/spa/cmd"
 )
 
 const (

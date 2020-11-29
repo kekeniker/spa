@@ -1,14 +1,24 @@
 package service_account
 
-import "github.com/spf13/cobra"
+import (
+	"github.com/kekeniker/spa/pkg/option"
+	"github.com/spf13/cobra"
+)
 
-func NewServiceAccountCommand() *cobra.Command {
+type saOption struct {
+	rootOpt *option.RootOption
+}
+
+func NewServiceAccountCommand(rootOpt *option.RootOption) *cobra.Command {
+	opt := &saOption{
+		rootOpt: rootOpt,
+	}
+
 	cmd := &cobra.Command{
 		Use:     "service-account",
 		Aliases: []string{"sa"},
 	}
 
-	cmd.AddCommand(newServiceAccountCreateCommand())
-
+	cmd.AddCommand(newServiceAccountCreateCommand(opt))
 	return cmd
 }

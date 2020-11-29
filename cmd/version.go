@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/kekeniker/spin-admin/pkg/version"
+	"github.com/kekeniker/spa/pkg/version"
 	"github.com/spf13/cobra"
 )
 

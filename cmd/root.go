@@ -1,7 +1,8 @@
 package cmd
 
 import (
-	sa "github.com/kekeniker/spin-admin/cmd/service_account"
+	sa "github.com/kekeniker/spa/cmd/service_account"
+	"github.com/kekeniker/spa/pkg/option"
 	"github.com/spf13/cobra"
 )
 
@@ -11,7 +12,11 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(sa.NewServiceAccountCommand())
+	opt := &option.RootOption{}
+	rootCmd.PersistentFlags().StringVarP(&opt.ConfigPath, "config", "c", "", "Debug output the operation")
+	rootCmd.PersistentFlags().BoolVarP(&opt.Debug, "debug", "d", false, "Debug output the operation")
+
+	rootCmd.AddCommand(sa.NewServiceAccountCommand(opt))
 	rootCmd.AddCommand(newVersionCommand())
 	rootCmd.AddCommand(newCompletionCmd())
 }
