@@ -50,7 +50,7 @@ func (c *client) CreateRole(ctx context.Context, name, namespace string) (*rbacv
 	role, err := c.clientset.RbacV1().Roles(namespace).Create(ctx, role, metav1.CreateOptions{})
 	if err != nil {
 		if errors.IsAlreadyExists(err) {
-			return role, nil
+			return c.clientset.RbacV1().Roles(namespace).Get(ctx, name, metav1.GetOptions{})
 		}
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *client) CreateClusterRole(ctx context.Context, name string) (*rbacv1.Cl
 	role, err := c.clientset.RbacV1().ClusterRoles().Create(ctx, role, metav1.CreateOptions{})
 	if err != nil {
 		if errors.IsAlreadyExists(err) {
-			return role, nil
+			return c.clientset.RbacV1().ClusterRoles().Get(ctx, name, metav1.GetOptions{})
 		}
 		return nil, err
 	}
