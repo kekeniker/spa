@@ -19,7 +19,7 @@ brews:
     commit_author:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
-    folder: homebrew-spa
+    folder: Formula
     description: "Spinnaker Admin tools"
     homepage: "https://github.com/kekeniker/spa"
     test: |
