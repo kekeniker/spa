@@ -16,6 +16,7 @@ const (
 	defaultRoleName           = "spinnaker-admin"
 	defaultRoleBindingName    = "spinnaker-admin"
 	defaultNamespace          = "kube-system"
+	defaultUsername           = "spinnaker-admin"
 )
 
 type createOption struct {
@@ -27,6 +28,7 @@ type createOption struct {
 	saOption        *saOption
 	saName          string
 	outputPath      string
+	username        string
 }
 
 func newServiceAccountCreateCommand(sa *saOption) *cobra.Command {
@@ -47,7 +49,8 @@ func newServiceAccountCreateCommand(sa *saOption) *cobra.Command {
 	cmd.PersistentFlags().StringVarP(&opts.saName, "service-account-name", "", defaultServiceAccountName, "Custom service account name")
 	cmd.PersistentFlags().StringVarP(&opts.roleName, "role-name", "", defaultRoleName, "Custom role name")
 	cmd.PersistentFlags().StringVarP(&opts.roleBindingName, "role-binding-name", "", defaultRoleBindingName, "Custom role binding name")
-	cmd.PersistentFlags().StringVarP(&opts.outputPath, "output", "o", "", "Path of the kube config output.")
+	cmd.PersistentFlags().StringVarP(&opts.outputPath, "output", "o", "", "Path of the kube config output")
+	cmd.PersistentFlags().StringVarP(&opts.username, "username", "u", defaultUsername, "AuthInfo username of the kubernetes context")
 	return cmd
 }
 
@@ -92,7 +95,7 @@ func serviceAccountCreateRun(opt *createOption) func(cmd *cobra.Command, args []
 		}
 
 		if opt.outputPath != "" {
-			cfg, err := client.CreateKubeConfig(secret)
+			cfg, err := client.CreateKubeConfig(secret, opt.username)
 			if err != nil {
 				return err
 			}

@@ -23,7 +23,7 @@ type Client interface {
 	CreateClusterRole(ctx context.Context, roleName string) (*rbacv1.ClusterRole, error)
 	CreateClusterRoleBinding(ctx context.Context, serviceAccountName, roleName, rbName, namespace string) (*rbacv1.ClusterRoleBinding, error)
 
-	CreateKubeConfig(secret *corev1.Secret) (*api.Config, error)
+	CreateKubeConfig(secret *corev1.Secret, username string) (*api.Config, error)
 }
 
 // ClientOption is for additional client configurations.
