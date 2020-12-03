@@ -7,7 +7,7 @@ import (
 
 	"github.com/kekeniker/spa/pkg/client"
 	"github.com/spf13/cobra"
-	"gopkg.in/yaml.v2"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
 const (
@@ -97,26 +97,17 @@ func serviceAccountCreateRun(opt *createOption) func(cmd *cobra.Command, args []
 				return err
 			}
 
-			// TODO(KeisukeYamashita)
-			// Create a DI container for mockable output
-
-			b, err := yaml.Marshal(cfg)
-			if err != nil {
-				return err
-			}
-
 			if opt.outputPath == "-" {
-				fmt.Print(string(b))
+				b, err := clientcmd.Write(*cfg)
+				if err != nil {
+					return err
+				}
+
+				fmt.Fprintf(os.Stdout, string(b))
 				return nil
 			}
 
-			f, err := os.OpenFile(opt.outputPath, os.O_RDONLY|os.O_CREATE|os.O_WRONLY, 0755)
-			if err != nil {
-				return err
-			}
-			defer f.Close()
-
-			if _, err := f.Write(b); err != nil {
+			if err := clientcmd.WriteToFile(*cfg, opt.outputPath); err != nil {
 				return err
 			}
 
