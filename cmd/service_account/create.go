@@ -97,17 +97,20 @@ func serviceAccountCreateRun(opt *createOption) func(cmd *cobra.Command, args []
 				return err
 			}
 
+			// TODO(KeisukeYamashita)
+			// Create a DI container for mockable output
+
 			b, err := yaml.Marshal(cfg)
 			if err != nil {
 				return err
 			}
 
 			if opt.outputPath == "-" {
-				fmt.Print(b)
+				fmt.Print(string(b))
 				return nil
 			}
 
-			f, err := os.Open(opt.outputPath)
+			f, err := os.OpenFile(opt.outputPath, os.O_RDONLY|os.O_CREATE|os.O_WRONLY, 0755)
 			if err != nil {
 				return err
 			}

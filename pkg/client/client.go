@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"flag"
 	"path/filepath"
 
 	corev1 "k8s.io/api/core/v1"
@@ -44,19 +43,19 @@ type client struct {
 
 // NewClient returns a Kubernetes API client that can be used outside the cluster
 func NewClient(ctx context.Context, opts ...ClientOption) (Client, error) {
-	var kubeconfig *string
+	var kubeconfig string
 	c := &client{}
 	for _, opt := range opts {
 		opt(c)
 	}
 
 	if home := homedir.HomeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
+		kubeconfig = filepath.Join(home, ".kube", "config")
 	} else {
-		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
+		kubeconfig = "h"
 	}
 
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
+	config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
 	if err != nil {
 		return nil, err
 	}
