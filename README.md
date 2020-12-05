@@ -2,6 +2,14 @@
 
 > spa is an swiss knife tool for Spinnaker
 
+## Install
+
+Install by this command.
+
+```console
+$ brew install kekeniker/tap/marco
+```
+
 ## Supported Features
 
 * Create Kubernetes Service Accounts with (Cluster)Role and (Cluster)Binding (and Kubeconfigs)
