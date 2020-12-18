@@ -7,7 +7,7 @@
 Install by this command.
 
 ```console
-$ brew install kekeniker/tap/marco
+$ brew install kekeniker/tap/spa
 ```
 
 ## Supported Features
