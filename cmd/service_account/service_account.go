@@ -19,6 +19,7 @@ func NewServiceAccountCommand(rootOpt *option.RootOption) *cobra.Command {
 		Aliases: []string{"sa"},
 	}
 
+	cmd.AddCommand(newServiceAccountGetCommand(opt))
 	cmd.AddCommand(newServiceAccountCreateCommand(opt))
 	return cmd
 }

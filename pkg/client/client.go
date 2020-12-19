@@ -17,13 +17,17 @@ var _ Client = (*client)(nil)
 
 // Client interface represents the API for the Kubernetes API cluster supported for spin-admin
 type Client interface {
+	// Create
 	CreateServiceAccount(ctx context.Context, name, namespace string) (*corev1.ServiceAccount, *corev1.Secret, error)
 	CreateRole(ctx context.Context, roleName, namespace string) (*rbacv1.Role, error)
 	CreateRoleBinding(ctx context.Context, serviceAccountName, roleName, roleBindingName, namespace string) (*rbacv1.RoleBinding, error)
 	CreateClusterRole(ctx context.Context, roleName string) (*rbacv1.ClusterRole, error)
 	CreateClusterRoleBinding(ctx context.Context, serviceAccountName, roleName, rbName, namespace string) (*rbacv1.ClusterRoleBinding, error)
-
 	CreateKubeConfig(secret *corev1.Secret, username string) (*api.Config, error)
+
+	// Get
+	GetServiceAccount(ctx context.Context, name, namespace string) (*corev1.ServiceAccount, error)
+	GetSecret(ctx context.Context, name, namespace string) (*corev1.Secret, error)
 }
 
 // ClientOption is for additional client configurations.
