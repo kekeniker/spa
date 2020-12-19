@@ -25,8 +25,8 @@ func newServiceAccountGetCommand(sa *saOption) *cobra.Command {
 	}
 
 	cmd := &cobra.Command{
-		Use:     "create",
-		Aliases: []string{"c"},
+		Use:     "get",
+		Aliases: []string{"g"},
 		RunE:    serviceAccountGetRun(opts),
 	}
 
