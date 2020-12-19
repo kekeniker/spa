@@ -40,4 +40,5 @@ It will do the following things:
 
 ## License
 
-Copyright 2020 KeisukeYamashita. marco is released under the Apache License 2.0.
+Copyright 2020 KeisukeYamashita.  
+SPA is released under the Apache License 2.0.
