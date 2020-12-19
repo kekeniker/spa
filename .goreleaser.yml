@@ -1,10 +1,7 @@
 builds:
 - main: .
   ldflags: 
-    - -s -w
-    - -X github.com/kekeniker/spa/pkg/version.Version={{.Tag}}
-    - -X github.com/kekeniker/spa/pkg/version.Revision={{.ShortCommit}}
-    - -X github.com/kekeniker/spa/pkg/version.BuildDate={{.Date}}
+    - -s -w -X github.com/kekeniker/spa/pkg/version.Version={{.Tag}} -X github.com/kekeniker/spa/pkg/version.Revision={{.ShortCommit}} -X github.com/kekeniker/spa/pkg/version.BuildDate={{.Date}}
   goos:
   - linux
   - darwin
