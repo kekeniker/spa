@@ -14,7 +14,7 @@ brews:
       owner: kekeniker
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    url_template: "http://github.com/kekeniker/spa/releases/downloads/{{ .Tag }}/{{ .ArtifactName }}"
+    url_template: "https://github.com/kekeniker/spa/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: goreleaserbot
       email: goreleaser@carlosbecker.com
