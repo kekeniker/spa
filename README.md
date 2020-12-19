@@ -12,6 +12,7 @@ $ brew install kekeniker/tap/spa
 
 ## Supported Features
 
+* Create Kubeconfig with existing service account
 * Create Kubernetes Service Accounts with (Cluster)Role and (Cluster)Binding (and Kubeconfigs)
 
 ### Features in detail
