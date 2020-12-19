@@ -17,13 +17,14 @@ $ brew install kekeniker/tap/spa
 ### Features in detail
 
 Here, I will explain what the commands actually do.
-<!-- 
+
 #### `spa service-account get`: Get Service account
 
 It will do the following things:
 
 1. Get service account (and retrieve token)
-2. Create dedicated Kubernetes config -->
+2. (Optional)Create dedicated Kubernetes config
+3. If no `output` option is specified, it will only print the access token
 
 #### `spa service-account create`: Create Service Account
 
