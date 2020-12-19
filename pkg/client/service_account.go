@@ -8,6 +8,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+func (c *client) GetServiceAccount(ctx context.Context, name, namespace string) (*v1.ServiceAccount, error) {
+	return c.clientset.CoreV1().ServiceAccounts(namespace).Get(ctx, name, metav1.GetOptions{})
+}
+
 func (c *client) CreateServiceAccount(ctx context.Context, name, namespace string) (*v1.ServiceAccount, *v1.Secret, error) {
 	_, err := c.clientset.CoreV1().ServiceAccounts(namespace).Create(ctx, &v1.ServiceAccount{
 		ObjectMeta: metav1.ObjectMeta{Name: name},
