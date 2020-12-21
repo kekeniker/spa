@@ -20,3 +20,18 @@ brews:
     homepage: "https://github.com/kekeniker/spa"
     test: |
       system "#{bin}/spa --version"
+dockers:
+  - image_templates:
+      - "ghcr.io/kekeniker/spa:{{ .Tag }}"
+      - "ghcr.io/kekeniker/spa:v{{ .Major }}"
+      - "ghcr.io/kekeniker/spa:v{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/kekeniker/spa:latest"
+    build_flag_templates:
+      - "--pull"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+    dockerfile: Dockerfile.compile
+    binaries:
+      - spa
